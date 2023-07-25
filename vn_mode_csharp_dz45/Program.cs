@@ -5,7 +5,18 @@ public static class Program
 {
     public static void Main()
     {
-        List<Fighter> fighters = new List<Fighter>
+        BattleController controller = new BattleController();
+        controller.StartBattle();
+    }
+}
+
+public class BattleController
+{
+    private List<Fighter> _fighters;
+
+    public BattleController()
+    {
+        _fighters = new List<Fighter>
         {
             new Warrior("Warrior1", 100, 20),
             new Warrior("Warrior2", 100, 20),
@@ -13,19 +24,22 @@ public static class Program
             new Priest("Priest", 80, 10),
             new Mage("Mage", 70, 15, 100)
         };
+    }
 
+    public void StartBattle()
+    {
         Console.WriteLine("Выберите двух бойцов для битвы:");
 
-        for (int i = 0; i < fighters.Count; i++)
+        for (int i = 0; i < _fighters.Count; i++)
         {
-            Console.WriteLine($"{i + 1}. {fighters[i].Name}");
+            Console.WriteLine($"{i + 1}. {_fighters[i].Name}");
         }
 
-        int fighter1Index = GetUserChoice(fighters.Count) - 1;
-        int fighter2Index = GetUserChoice(fighters.Count) - 1;
+        int fighter1Index = GetUserChoice(_fighters.Count) - 1;
+        int fighter2Index = GetUserChoice(_fighters.Count) - 1;
 
-        Fighter fighter1 = fighters[fighter1Index];
-        Fighter fighter2 = fighters[fighter2Index];
+        Fighter fighter1 = _fighters[fighter1Index];
+        Fighter fighter2 = _fighters[fighter2Index];
 
         while (!fighter1.IsDead() && !fighter2.IsDead())
         {
